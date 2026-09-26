@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bubudoo · Студия</title>
+<link rel="icon" href="assets/img/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#ff8fb1">
+<meta name="apple-mobile-web-app-title" content="Bubudoo">
+<meta name="application-name" content="Bubudoo">
+<meta name="msapplication-TileColor" content="#ffd6e3">
+<meta name="msapplication-config" content="browserconfig.xml">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@500;600;700;800&family=Comfortaa:wght@700&family=Marmelad&family=Pangolin&family=Caveat:wght@700&family=Pacifico&family=Lobster&display=swap" rel="stylesheet">
+<style>
+:root{--pk:#ff8fb1;--pk2:#ffd6e3;--pk3:#fff0f5;--ink:#5b3a4a;--soft:#a67c8f}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Fredoka,Nunito,ui-rounded,system-ui,sans-serif;color:var(--ink);
+background:radial-gradient(circle at 15% 8%,#ffe0ea,transparent 42%),radial-gradient(circle at 88% 92%,#d9efff,transparent 46%),#fff6f9;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible{outline:3px solid #ff5c8a;outline-offset:2px}
+.fl{position:fixed;bottom:-40px;font-size:22px;opacity:.5;pointer-events:none;animation:up linear infinite}
+.fl-face img{width:26px;height:26px;display:block}
+#hero{min-height:100dvh;display:flex;flex-direction:column}
+.hero-logo{align-self:flex-start;margin:14px 0 0 4px}
+.hero-main{flex:1;width:100%;max-width:min(94vw,2600px);margin:0 auto;display:grid;grid-template-columns:1fr 1.15fr;align-items:center;gap:clamp(24px,4vw,120px);padding:0 clamp(20px,6vw,72px) clamp(16px,3vh,36px)}
+.hero-left{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(16px,2.4vh,26px);max-width:clamp(380px,30vw,760px)}
+.hero-sub{margin:0;font-size:clamp(15px,1.3vw,30px);line-height:1.55;color:var(--soft)}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;padding:clamp(14px,1.4vw,22px) clamp(26px,2.6vw,46px);border-radius:99px;background:var(--pk);color:#fff;font-weight:600;font-size:clamp(16px,1.6vw,26px);box-shadow:0 12px 26px #ff8fb155;transition:transform .15s,box-shadow .15s}
+.hero-cta i{font-style:normal;transition:transform .15s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 16px 32px #ff8fb166}
+.hero-cta:hover i{transform:translateX(4px)}
+.hero-right{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,1.6vh,16px)}
+.hero-img{width:100%;max-width:clamp(320px,42vw,1500px);max-height:min(58dvh,1500px);object-fit:contain;filter:drop-shadow(0 18px 26px rgba(91,58,74,.18))}
+.hero-word{font-family:Fredoka,sans-serif;font-weight:600;font-size:clamp(26px,3.6vw,120px);color:#ff5c8a;transform:rotate(-2deg);text-shadow:0 3px 0 #fff,0 6px 14px rgba(255,140,180,.35)}
+@media(max-width:760px){
+ .hero-main{grid-template-columns:1fr;grid-template-rows:auto auto;align-content:center;text-align:center;padding:0 26px calc(18px + env(safe-area-inset-bottom));gap:clamp(14px,3vh,28px)}
+ .hero-right{order:1}.hero-left{order:2;align-items:center;max-width:420px;margin:0 auto}
+ .hero-img{max-height:34dvh}
+ .hero-word{font-size:clamp(24px,7vw,32px)}
+ .hero-cta{align-self:center;width:100%;justify-content:center;max-width:340px}
+}
+@media(max-height:560px) and (max-width:760px){.hero-img{max-height:26dvh}.hero-word{font-size:clamp(20px,5vw,26px)}.hero-sub{font-size:14px}}
+
+@keyframes up{to{transform:translateY(-115vh) rotate(20deg)}}
+.app{position:relative;max-width:1040px;margin:0 auto;padding:18px 16px 28px;display:flex;flex-direction:column;min-height:100vh}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.lang{position:relative;display:flex;background:#fff;border-radius:99px;padding:4px;box-shadow:0 4px 14px #ff8fb133}
+.lang i{position:absolute;top:4px;left:4px;width:48px;height:calc(100% - 8px);background:var(--pk);border-radius:99px;box-shadow:0 3px 10px #ff8fb188;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.lang button{position:relative;z-index:1;width:48px;padding:6px 0;border-radius:99px;font-size:14px;font-weight:500;transition:color .2s}
+.lang button.on{color:#fff}
+.ft{margin-top:auto;padding-top:44px;text-align:center;color:var(--soft);font-size:13px;line-height:1.6}
+.ft div{border-top:2px dotted var(--pk2);padding-top:16px}
+.ft b{display:block;color:var(--ink);font-weight:500;font-size:14px}
+.ft p{margin:2px auto 0;max-width:520px}
+.logo{font-size:20px;padding:8px 16px;background:#fff;border-radius:99px;box-shadow:0 4px 14px #ff8fb133}
+.logo small{color:var(--soft);font-size:14px;margin-left:4px}
+.logo{display:inline-flex;align-items:center;gap:8px}
+.mark{height:36px;width:auto;margin:-6px 0;flex:none}
+.hidden{display:none!important}
+h1{font-size:clamp(28px,5vw,44px);text-align:center;margin:34px 0 4px}
+html:not([lang=en]) h1,html:not([lang=en]) .cc h2,html:not([lang=en]) .logo b{font-weight:800}
+.sub{text-align:center;color:var(--soft);margin:0 0 26px}
+.cards{display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+.cc{width:min(300px,86vw);background:#fff;border-radius:38px 38px 38px 12px;padding:16px 16px 20px;box-shadow:0 10px 30px #ff8fb133;transition:transform .25s}
+.cc:nth-child(2){border-radius:38px 38px 12px 38px}
+.cc:hover{transform:translateY(-8px) rotate(-1.5deg)}
+.cc:nth-child(2):hover{transform:translateY(-8px) rotate(1.5deg)}
+.cc h2{margin:6px 0 0;font-size:30px}.cc span{color:var(--soft)}
+.cc svg,.stage svg{width:100%;height:auto;display:block}
+#edit{display:grid;grid-template-columns:minmax(300px,.8fr) minmax(0,1fr);gap:24px;margin-top:22px;align-items:start}
+.sw{order:2;background:#fff;border-radius:34px;padding:16px;box-shadow:0 10px 30px #ff8fb133;width:100%;max-width:620px;justify-self:center;position:sticky;top:12px}
+.stage{width:min(100%,max(240px,calc((100vh - 200px)*.882)));margin:0 auto}
+.stage.bn svg{animation:bn .45s}
+@keyframes bn{30%{transform:scale(1.04,.96)}60%{transform:scale(.98,1.03)}}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.tools button{background:var(--pk3);border-radius:18px;padding:9px 4px;font-size:13px;display:flex;flex-direction:column;gap:2px;align-items:center;transition:background .2s}
+.tools button b{font-size:20px;font-weight:400}
+.tools button:hover{background:var(--pk2)}
+.tools .go{background:var(--pk);color:#fff}.tools .go:hover{background:#ff76a0}
+.panel{order:1;background:#fff;border-radius:34px;padding:16px;box-shadow:0 10px 30px #ff8fb133;max-height:calc(100vh - 90px);overflow-y:auto;overflow-x:hidden}
+.seg{display:flex;background:var(--pk3);border-radius:99px;padding:4px;margin-bottom:14px}
+.seg button{flex:1;padding:9px;border-radius:99px;font-weight:500}
+.seg .on{background:var(--pk);color:#fff;box-shadow:0 4px 10px #ff8fb166}
+.seg button{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.seg-ic{width:24px;height:24px;flex:none}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tabs button{padding:8px 13px;border-radius:99px;background:var(--pk3);font-size:14px}
+.tabs .on{background:var(--ink);color:#fff}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.opts button{background:var(--pk3);border:3px solid transparent;border-radius:22px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:14px;transition:transform .15s}
+.opts button:hover{transform:translateY(-3px)}
+.opts .on{border-color:var(--pk);background:#fff;box-shadow:0 4px 12px #ff8fb155}
+.opts b{font-size:28px;font-weight:400;line-height:1;height:34px;display:flex;align-items:center}
+.opts i{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px #e9c9d6}
+.stage{position:relative}#tc{position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;pointer-events:none}
+.txp{display:grid;gap:12px}.txp .lab{font-size:13px;color:var(--soft);margin-bottom:-6px}
+.txp input[type=text]{font:inherit;width:100%;padding:11px 14px;border-radius:16px;border:2px solid var(--pk2);background:var(--pk3);color:var(--ink)}
+.txp input[type=text]:focus{outline:none;border-color:var(--pk)}.txp input[type=range]{width:100%;accent-color:var(--pk)}
+.fonts{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.fonts button,.pill{padding:9px 10px;border-radius:16px;background:var(--pk3);border:2px solid transparent}
+.pill{border-radius:99px;font-size:14px}.fonts .on,.pill.on{border-color:var(--pk);background:#fff}.pill.on{background:var(--pk);color:#fff}
+.sws,.row{display:flex;gap:8px;flex-wrap:wrap}.sws button{width:32px;height:32px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px #e9c9d6}.sws .on{box-shadow:0 0 0 3px var(--pk)}
+.sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sh-bg{position:absolute;inset:0;background:rgba(91,58,74,.4);backdrop-filter:blur(3px);animation:fade .2s}
+.sh-box{position:relative;width:min(600px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:28px 28px 0 0;padding:12px 16px calc(18px + env(safe-area-inset-bottom));animation:slide .3s cubic-bezier(.2,.9,.3,1)}
+.grab{width:44px;height:5px;border-radius:9px;background:var(--pk2);margin:0 auto 12px;touch-action:none}
+.sh-box h3{margin:0 0 14px;text-align:center;font-size:20px}
+.x{position:absolute;top:12px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--pk3)}
+.fmts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.fmt{background:var(--pk3);border-radius:20px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;border:2px solid transparent;transition:transform .15s,border-color .15s}
+.fmt:hover{border-color:var(--pk);transform:translateY(-2px)}.fmt.busy{opacity:.5;pointer-events:none}
+.fmt .th{height:108px;display:flex;align-items:center}
+.fmt img{max-height:108px;max-width:100%;border-radius:10px;background:repeating-conic-gradient(#fff 0 25%,#f3e6ec 0 50%) 0 0/12px 12px;min-width:40px;min-height:40px}
+.fmt b{font-size:14px;font-weight:600}.fmt small{color:var(--soft);font-size:12px}
+.chk{display:flex;gap:8px;align-items:center;justify-content:center;margin:14px 0 0;font-size:14px}.chk input{accent-color:var(--pk);width:18px;height:18px}
+@keyframes slide{from{transform:translateY(100%)}}@keyframes fade{from{opacity:0}}
+@media(min-width:700px){.sheet{align-items:center}.sh-box{border-radius:28px}.fmts{grid-template-columns:repeat(3,1fr)}.grab{display:none}}
+@media(max-width:700px){
+ #edit{grid-template-columns:minmax(0,1fr);gap:14px;margin-top:14px}
+ .sw{order:1;position:sticky;top:8px;z-index:5;padding:10px;border-radius:26px;max-width:none;justify-self:stretch}
+ .stage{width:min(100%,calc(min(36vh,330px)*.882))}
+ .tools{margin-top:8px;gap:6px}
+ .tools button{padding:6px 2px;font-size:11.5px;border-radius:14px}
+ .tools button b{font-size:17px}
+ .panel{order:2;max-height:none;overflow:visible;padding:14px;border-radius:26px}
+}
+@media(max-width:520px){
+ .top{flex-wrap:nowrap}
+ .logo{font-size:17px;padding:8px 12px;gap:6px}.logo small{display:none}.mark{height:32px;margin:-4px 0}
+ .lang i,.lang button{width:42px}
+ h1{margin-top:22px}
+ .cards{gap:12px;flex-wrap:nowrap}
+ .cc{width:calc(50% - 6px);padding:10px 10px 14px}
+ .cc h2{font-size:22px}
+}
+.tr{display:flex;align-items:center;gap:8px}
+.faqb{width:38px;height:38px;border-radius:50%;background:var(--pk);box-shadow:0 4px 12px #ff8fb188;font-weight:800;font-size:20px;line-height:1;color:#fff;transition:transform .15s,background .2s}
+.faqb:hover{background:#ff76a0;transform:scale(1.08)}
+.fl2{margin-top:8px!important}.fl2 button{text-decoration:underline;color:var(--soft);font-size:13px}
+.q{background:var(--pk3);border-radius:18px;margin-bottom:8px;overflow:hidden}
+.q summary{padding:13px 16px;cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.q summary::-webkit-details-marker{display:none}.q summary::after{content:'+';color:var(--pk);font-size:22px;line-height:1}.q[open] summary::after{content:'−'}
+.q p{margin:0;padding:0 16px 14px;line-height:1.5;font-size:14.5px}.q a,.help a:not(.btn){color:#d6457a;font-weight:600}
+.help{margin-top:14px;padding:16px;border-radius:22px;background:linear-gradient(135deg,#ffe0ea,#e3f1ff)}
+.help h4{margin:0 0 6px;font-size:17px}.help p{margin:0 0 12px;font-size:14.5px;line-height:1.5}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:99px;background:var(--pk);color:#fff;text-decoration:none;font-weight:500}
+.ico{width:17px;height:17px;flex:none;display:inline-flex}.ico svg{width:100%;height:100%}
+.help details{margin-top:12px;font-size:14px}.help summary{cursor:pointer;font-weight:600}.help ul{margin:8px 0 0;padding-left:20px;line-height:1.55}
+.btn2{background:#fff;color:var(--pk);box-shadow:inset 0 0 0 2px var(--pk)}
+.help.flash{animation:fl 1.4s}@keyframes fl{40%{box-shadow:0 0 0 7px #ff8fb166}}
+@media(max-width:440px){.lang i,.lang button{width:38px}}
+@media(max-width:380px){.logo{font-size:15px!important}.tr{gap:6px}}
+@media(max-width:350px){.faqb{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="fl"></div>
+<section id="hero">
+  <button class="logo hero-logo" id="heroHome"><img class="mark" alt="" width="228" height="160" src="assets/img/logo.webp"><b data-k="logo">Bubudoo</b></button>
+  <div class="hero-main">
+    <div class="hero-left">
+      <p class="hero-sub" data-k="heroSub"></p>
+      <button class="hero-cta" id="heroCta"><span data-k="heroCta"></span> <i>→</i></button>
+    </div>
+    <div class="hero-right">
+      <img class="hero-img" alt="Bubu & Dudu" src="assets/img/hero-pair.webp">
+      <div class="hero-word">Bubudoo</div>
+    </div>
+  </div>
+</section>
+
+<main class="app hidden">
+<header class="top hidden">
+  <button class="logo" id="home"><img class="mark" alt="" width="228" height="160" src="assets/img/logo.webp"><b data-k="logo">Bubudoo</b><small data-k="studio">студия</small></button>
+  <div class="tr"><button class="faqb" id="faqb" aria-label="FAQ">?</button><div class="lang" role="group" aria-label="Language"><i id="th"></i><button data-l="ru">RU</button><button data-l="uk">UA</button><button data-l="en">EN</button></div></div>
+</header>
+
+<section id="pick" class="hidden">
+  <h1 data-k="h1">Кого будем наряжать?</h1>
+  <p class="sub" data-k="sub">Выбери героя. Потом его можно поменять 💕</p>
+  <div class="cards">
+    <button class="cc" data-ch="bubu"><div id="pv-bubu"></div><h2 data-k="bubu">Бубу</h2><span data-k="bubuS">пандочка</span></button>
+    <button class="cc" data-ch="dudu"><div id="pv-dudu"></div><h2 data-k="dudu">Дуду</h2><span data-k="duduS">мишка</span></button>
+  </div>
+</section>
+
+<section id="edit" class="hidden">
+  <div class="sw">
+    <div class="stage" id="stage"><div id="sv"></div><canvas id="tc"></canvas></div>
+    <div class="tools">
+      <button id="undo"><b>↶</b><span data-k="undo">Назад</span></button>
+      <button id="rnd"><b>🎲</b><span data-k="rnd">Случайно</span></button>
+      <button id="rst"><b>↺</b><span data-k="rst">Сначала</span></button>
+      <button id="dl" class="go"><b>⬇</b><span data-k="dl">Скачать</span></button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="seg" id="seg"></div>
+    <div class="tabs" id="tabs"></div>
+    <div class="opts" id="opts"></div>
+    <div class="txp hidden" id="txp"></div>
+  </div>
+</section>
+<footer class="ft hidden"><div><b data-k="foot1">© 2026 Bubudoo · studio</b><p data-k="foot2"></p><p class="fl2"><button data-open="faq" data-k="ftFaq"></button> · <button data-open="help" data-k="ftHelp"></button></p></div></footer>
+</main>
+
+<div class="sheet hidden" id="faq" role="dialog" aria-modal="true" aria-labelledby="faqt">
+  <div class="sh-bg" data-close></div>
+  <div class="sh-box"><div class="grab"></div><button class="x" data-close aria-label="Close">✕</button>
+    <h3 id="faqt" data-k="faqT"></h3><div id="faqc"></div></div>
+</div>
+<div class="sheet hidden" id="dlm" role="dialog" aria-modal="true" aria-labelledby="dlt">
+  <div class="sh-bg" data-close></div>
+  <div class="sh-box"><div class="grab"></div><button class="x" data-close aria-label="Close">✕</button>
+    <h3 id="dlt" data-k="dlTitle"></h3>
+    <div class="fmts" id="fmts"></div>
+    <label class="chk"><input type="checkbox" id="outl" checked> <span data-k="dlOl"></span></label>
+  </div>
+</div>
+<script>
+const $=q=>document.querySelector(q),
+HP='M0 8C-14-2-10-14 0-6C10-14 14-2 0 8Z',
+SP='M0-10L2.4-3.3 9.5-3.1 3.9 1.3 5.9 8.1 0 4.1-5.9 8.1-3.9 1.3-9.5-3.1-2.4-3.3Z';
+
+const P={
+ bubu:{n:'Бубу',dark:'#3b3340',line:'#3b3340',fur:[['Классика','#ffffff'],['Сливки','#fff1e0'],['Розовый','#ffe1ec'],['Небесный','#e3f1ff']]},
+ dudu:{n:'Дуду',dark:'#5a3a2e',line:'#6b4230',fur:[['Карамель','#c98b5a'],['Шоколад','#9a6444'],['Мёд','#e6b070'],['Латте','#d9b99b']]}
+};
+
+const eye=(f)=>({f});
+const O={
+ eyes:[
+  {n:'Точки',e:'⚫',f:(x,i,h)=>`<ellipse cx="${x}" cy="142" rx="7" ry="9" fill="${i}"/><circle cx="${x+2.5}" cy="138.5" r="3" fill="${h}"/>`},
+  {n:'Блёстки',e:'✨',f:(x,i,h)=>`<ellipse cx="${x}" cy="142" rx="9" ry="11" fill="${i}"/><circle cx="${x+3}" cy="137" r="3.6" fill="${h}"/><circle cx="${x-3}" cy="146" r="2" fill="${h}"/>`},
+  {n:'Радость',e:'😊',f:(x,i)=>`<path d="M${x-9} 147Q${x} 132 ${x+9} 147" stroke="${i}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`},
+  {n:'Сонные',e:'😴',f:(x,i)=>`<path d="M${x-9} 141Q${x} 152 ${x+9} 141" stroke="${i}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`},
+  {n:'Сердечки',e:'😍',f:x=>`<path transform="translate(${x},142) scale(1.2)" d="${HP}" fill="#ff5c8a"/>`},
+  {n:'Звёздочки',e:'🤩',f:x=>`<path transform="translate(${x},142) scale(1.3)" d="${SP}" fill="#ffd54a"/>`}
+ ],
+ mouth:[
+  {n:'Улыбка',e:'🙂',f:m=>`<path d="M138 168Q150 182 162 168" stroke="${m}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`},
+  {n:'Ура!',e:'😄',f:m=>`<path d="M136 168Q150 198 164 168Z" fill="#7a3145" stroke="${m}" stroke-width="3" stroke-linejoin="round"/><path d="M144 183Q150 175 156 183Q150 189 144 183Z" fill="#ff8fa3"/>`},
+  {n:'Кошачий',e:'😺',f:m=>`<path d="M134 167Q142 180 150 169Q158 180 166 167" stroke="${m}" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`},
+  {n:'Язычок',e:'😛',f:m=>`<path d="M146 175v7a4 4 0 0 0 8 0v-7" fill="#ff8fa3" stroke="${m}" stroke-width="2.5"/><path d="M138 168Q150 182 162 168" stroke="${m}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`},
+  {n:'Ой',e:'😮',f:m=>`<ellipse cx="150" cy="176" rx="5" ry="6.5" fill="#7a3145" stroke="${m}" stroke-width="3"/>`}
+ ],
+ cheek:[
+  {n:'Нет',e:'✖️',f:()=>''},
+  {n:'Румянец',e:'🌸',f:()=>`<ellipse cx="80" cy="168" rx="15" ry="9" fill="#ff8fb1" opacity=".6"/><ellipse cx="220" cy="168" rx="15" ry="9" fill="#ff8fb1" opacity=".6"/>`},
+  {n:'Сердечки',e:'💗',f:()=>`<path transform="translate(80,168) scale(1.2)" d="${HP}" fill="#ff7aa2"/><path transform="translate(220,168) scale(1.2)" d="${HP}" fill="#ff7aa2"/>`},
+  {n:'Веснушки',e:'🟤',f:()=>[76,84,80,216,224,220].map((x,j)=>`<circle cx="${x}" cy="${j%3==2?175:165+(j%3)*2}" r="2" fill="#8a5a3c" opacity=".55"/>`).join('')}
+ ],
+ top:[
+  {n:'Нет',e:'✖️',f:()=>''},
+  {n:'Свитер',e:'🧶',f:()=>`<rect x="80" y="170" width="140" height="160" fill="#ff9eb5"/><rect x="80" y="248" width="140" height="13" fill="#fff" opacity=".85"/><rect x="80" y="276" width="140" height="13" fill="#fff" opacity=".85"/>`},
+  {n:'Худи',e:'🧥',f:()=>`<rect x="80" y="170" width="140" height="160" fill="#9ed0f0"/><path d="M116 282h68l-9 24h-50Z" fill="#7fbbe0"/><path d="M138 226v26M162 226v26" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`},
+  {n:'Комбинезон',e:'👖',f:()=>`<rect x="80" y="252" width="140" height="80" fill="#7aa7e8"/><rect x="108" y="205" width="12" height="52" fill="#7aa7e8"/><rect x="180" y="205" width="12" height="52" fill="#7aa7e8"/><rect x="134" y="272" width="32" height="22" rx="4" fill="#6b95d8"/><circle cx="114" cy="258" r="4" fill="#ffd54a"/><circle cx="186" cy="258" r="4" fill="#ffd54a"/>`},
+  {n:'Платье',e:'👗',f:()=>`<path d="M90 232Q150 252 210 232L232 330H68Z" fill="#ffb7d5"/>${[[110,270],[150,290],[190,268],[128,306],[176,308]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5" fill="#fff" opacity=".85"/>`).join('')}`},
+  {n:'Футболка',e:'👕',f:()=>`<rect x="80" y="170" width="140" height="160" fill="#fff3c4"/><path transform="translate(150,268) scale(2.4)" d="${HP}" fill="#ff6b8b"/>`}
+ ],
+ hat:[
+  {n:'Нет',e:'✖️',f:()=>''},
+  {n:'Бантик',e:'🎀',f:()=>`<g transform="translate(212,64) rotate(18)"><path d="M0 0L-28-17Q-33 0-28 17Z M0 0L28-17Q33 0 28 17Z" fill="#ff8fb1" stroke="#e0658a" stroke-width="2.5" stroke-linejoin="round"/><circle r="7" fill="#ff6b9a" stroke="#e0658a" stroke-width="2.5"/></g>`},
+  {n:'Венок',e:'🌼',f:()=>[[106,68,'#ff9eb5'],[128,58,'#fff'],[150,54,'#ffd54a'],[172,58,'#fff'],[194,68,'#ff9eb5']].map(([x,y,c])=>`<circle cx="${x}" cy="${y}" r="10" fill="${c}" stroke="#e0a0b5" stroke-width="2"/><circle cx="${x}" cy="${y}" r="3.5" fill="#ff8a3d"/>`).join('')},
+  {n:'Шапочка',e:'🧢',f:()=>`<path d="M86 100Q86 38 150 38Q214 38 214 100Z" fill="#7ec8b8" stroke="#4d9d8c" stroke-width="3" stroke-linejoin="round"/><rect x="80" y="92" width="140" height="18" rx="9" fill="#5bb3a1" stroke="#4d9d8c" stroke-width="3"/><circle cx="150" cy="34" r="11" fill="#fff" stroke="#d5c2cc" stroke-width="2.5"/>`},
+  {n:'Корона',e:'👑',f:()=>`<path d="M112 76L118 42L134 60L150 36L166 60L182 42L188 76Z" fill="#ffd54a" stroke="#e0a800" stroke-width="3" stroke-linejoin="round"/><circle cx="150" cy="62" r="4" fill="#ff5c8a"/><circle cx="126" cy="66" r="3" fill="#7ec8ff"/><circle cx="174" cy="66" r="3" fill="#7ec8ff"/>`},
+  {n:'Колпак',e:'🎉',f:()=>`<g transform="rotate(12 150 66)"><path d="M150 4L116 68Q150 78 184 68Z" fill="#ffb3d1" stroke="#e0658a" stroke-width="3" stroke-linejoin="round"/><path d="M138 30L162 34M130 48L170 54" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="150" cy="6" r="8" fill="#ffd54a" stroke="#e0a800" stroke-width="2.5"/></g>`}
+ ],
+ acc:[
+  {n:'Нет',e:'✖️',f:()=>''},
+  {n:'Очки',e:'👓',f:()=>`<g fill="#fff" fill-opacity=".2" stroke="#ffa94d" stroke-width="3.5"><circle cx="114" cy="142" r="19"/><circle cx="186" cy="142" r="19"/></g><path d="M133 142H167" stroke="#ffa94d" stroke-width="3.5"/>`},
+  {n:'Тёмные очки',e:'😎',f:()=>`<g fill="#5b6bbf" stroke="#ff8fb1" stroke-width="3.5"><rect x="92" y="126" width="44" height="32" rx="14"/><rect x="164" y="126" width="44" height="32" rx="14"/></g><path d="M136 140H164" stroke="#ff8fb1" stroke-width="3.5"/><path d="M100 134l10-4M172 134l10-4" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>`},
+  {n:'Шарфик',e:'🧣',f:()=>`<path d="M96 212Q150 244 204 212L208 234Q150 266 92 234Z" fill="#ff8fb1" stroke="#e0658a" stroke-width="3" stroke-linejoin="round"/><rect x="176" y="236" width="26" height="48" rx="9" fill="#ff6b9a" stroke="#e0658a" stroke-width="3"/><path d="M180 254h18M180 266h18" stroke="#fff" stroke-width="3" opacity=".8"/>`},
+  {n:'Бабочка',e:'🎩',f:()=>`<path d="M150 226L118 208V244Z M150 226L182 208V244Z" fill="#ff6b8b" stroke="#c9426a" stroke-width="3" stroke-linejoin="round"/><circle cx="150" cy="226" r="7" fill="#e0456b"/>`},
+  {n:'Кулон',e:'💛',f:()=>`<path d="M110 224Q150 262 190 224" stroke="#ffd54a" stroke-width="3" fill="none"/><path transform="translate(150,252) scale(1.5)" d="${HP}" fill="#ff5c8a" stroke="#fff" stroke-width="1.5"/>`}
+ ],
+ prop:[
+  {n:'Нет',e:'✖️',f:()=>''},
+  {n:'Шарик',e:'🎈',f:()=>`<path d="M246 148Q232 220 222 270" stroke="#c98aa0" stroke-width="2.5" fill="none"/><path transform="translate(246,118) scale(3.6)" d="${HP}" fill="#ff6b8b" stroke="#e0456b" stroke-width=".7"/><path d="M234 108Q236 100 244 98" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".8"/>`},
+  {n:'Роза',e:'🌹',f:()=>`<path d="M232 310V256" stroke="#5fae6b" stroke-width="5" stroke-linecap="round"/><path d="M232 290Q248 284 250 272Q236 274 232 290Z" fill="#7cc78a"/><circle cx="232" cy="248" r="13" fill="#ff5c7c" stroke="#d63d5f" stroke-width="2.5"/><path d="M226 246Q232 238 238 246Q232 252 226 246" stroke="#d63d5f" stroke-width="2" fill="none"/>`},
+  {n:'Подарок',e:'🎁',f:()=>`<rect x="212" y="266" width="44" height="38" rx="7" fill="#ffcf5c" stroke="#e0a800" stroke-width="3"/><rect x="230" y="266" width="8" height="38" fill="#ff8fb1"/><path d="M234 266Q216 250 222 262Z M234 266Q252 250 246 262Z" fill="#ff8fb1" stroke="#e0658a" stroke-width="2.5"/>`},
+  {n:'Бабл-ти',e:'🧋',f:()=>`<path d="M240 226L246 250" stroke="#ff8fb1" stroke-width="5" stroke-linecap="round"/><path d="M218 250H258L252 302Q251 308 245 308H231Q225 308 224 302Z" fill="#ffe6ef" stroke="#5b3a4a" stroke-width="3" stroke-linejoin="round"/><g fill="#6b4230"><circle cx="234" cy="298" r="4"/><circle cx="244" cy="298" r="4"/><circle cx="239" cy="290" r="4"/></g>`}
+ ]
+};
+
+const deco=(d,c)=>[[38,52,1],[258,44,1.4],[26,196,1.2],[270,170,.9],[52,296,1.1],[246,302,1.3]]
+ .map(([x,y,k])=>`<path transform="translate(${x},${y}) scale(${k*1.6})" d="${d}" fill="${c}" opacity=".55"/>`).join('');
+const cloud=`<g fill="#fff" opacity=".9"><circle cx="58" cy="62" r="15"/><circle cx="78" cy="58" r="19"/><circle cx="100" cy="64" r="13"/><rect x="46" y="62" width="66" height="14" rx="7"/><circle cx="220" cy="120" r="12"/><circle cx="238" cy="116" r="16"/><rect x="208" y="120" width="52" height="12" rx="6"/></g>`;
+const BG=[
+ ['Розовое','🌸',['#ffdce8','#fff4f8'],deco(HP,'#ff9eb5')],
+ ['Небо','☁️',['#c9e7ff','#f1f9ff'],cloud],
+ ['Мята','🍃',['#d3f5e4','#f3fffa'],deco(SP,'#7fd6b0')],
+ ['Лаванда','💜',['#e4d9ff','#faf6ff'],deco(SP,'#b79cff')],
+ ['Закат','🌇',['#ffd2b0','#ffb3cb'],deco(HP,'#ffffff')],
+ ['Крем','🍦',['#fff3d6','#fffaf0'],deco(HP,'#ffc98a')]
+];
+O.bg=BG.map(b=>({n:b[0],e:b[1]}));
+
+/* Characters with real PNG layers. i = index into the name/emoji lists, f = file in assets/img */
+const IM={
+ bubu:{fur:[{i:0,f:'empty/bubu/classic.png'}],eyes:[{i:0,f:'eyes/dots.png'}],mouth:[{i:1,f:'mouth/open.png'}],cheek:[{i:0},{i:1,f:'cheeks/blush.png'}]},
+ dudu:{fur:[{i:0,f:'empty/dudu/caramel.png'}],eyes:[{i:0,f:'eyes/dots.png'}],mouth:[{i:1,f:'mouth/open.png'}],cheek:[{i:0},{i:1,f:'cheeks/blush.png'}]}
+};
+const IMCATS=['fur','eyes','mouth','cheek','bg','tx'];
+function RI(s,id,nb){
+ const bg=BG[s.bg],L=['fur','cheek','eyes','mouth'].map(k=>{const it=(IM[s.ch][k]||[])[s[k]];return it&&it.f?`<image href="assets/img/${it.f}" x="-15" y="8" width="330" height="330"/>`:''}).join('');
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 340" width="300" height="340"><defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg[2][0]}"/><stop offset="1" stop-color="${bg[2][1]}"/></linearGradient></defs>${nb?'':`<rect width="300" height="340" rx="28" fill="url(#g${id})"/>${bg[3]}`}${nb?'':'<ellipse cx="150" cy="324" rx="84" ry="9" fill="#5b3a4a" opacity=".1"/>'}${L}</svg>`;
+}
+function R(s,id,nb){
+ if(IM[s.ch])return RI(s,id,nb);
+ const p=P[s.ch],fur=p.fur[s.fur%4][1],k=p.dark,pa=s.ch=='bubu';
+ const st=`stroke="${p.line}" stroke-width="3.5" stroke-linejoin="round"`;
+ const ink=pa?'#fff':'#3b2a2f',hi=pa?'#3b3340':'#fff',mc='#3b2a2f',limb=pa?k:fur;
+ const bg=BG[s.bg];
+ const ear=(x)=>`<circle cx="${x}" cy="72" r="26" fill="${pa?k:fur}" ${st}/>`+(pa?'':`<circle cx="${x}" cy="72" r="13" fill="#f4b0a4"/>`);
+ const face=pa
+  ?`<ellipse cx="114" cy="142" rx="21" ry="26" transform="rotate(-18 114 142)" fill="${k}"/><ellipse cx="186" cy="142" rx="21" ry="26" transform="rotate(18 186 142)" fill="${k}"/><ellipse cx="150" cy="158" rx="9" ry="6.5" fill="${k}"/><ellipse cx="147" cy="156" rx="3" ry="1.6" fill="#fff" opacity=".6"/>`
+  :`<ellipse cx="150" cy="166" rx="38" ry="29" fill="#f6e0c8"/><ellipse cx="150" cy="154" rx="9" ry="6.5" fill="#5a3a2e"/><ellipse cx="147" cy="152" rx="3" ry="1.6" fill="#fff" opacity=".5"/>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 340" width="300" height="340">
+<defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg[2][0]}"/><stop offset="1" stop-color="${bg[2][1]}"/></linearGradient><clipPath id="c${id}"><ellipse cx="150" cy="245" rx="62" ry="70"/></clipPath></defs>
+${nb?'':`<rect width="300" height="340" rx="28" fill="url(#g${id})"/>${bg[3]}`}
+${nb?'':'<ellipse cx="150" cy="324" rx="84" ry="9" fill="#5b3a4a" opacity=".1"/>'}
+<ellipse cx="112" cy="308" rx="25" ry="15" fill="${limb}" ${st}/><ellipse cx="188" cy="308" rx="25" ry="15" fill="${limb}" ${st}/>
+${ear(78)}${ear(222)}
+<ellipse cx="150" cy="245" rx="62" ry="70" fill="${fur}" ${st}/>
+${pa?'':`<ellipse cx="150" cy="256" rx="36" ry="44" fill="#f6e0c8"/>`}
+<g clip-path="url(#c${id})">${O.top[s.top].f()}</g>
+<ellipse cx="150" cy="245" rx="62" ry="70" fill="none" ${st}/>
+<ellipse cx="86" cy="252" rx="17" ry="32" transform="rotate(22 86 252)" fill="${limb}" ${st}/>
+<ellipse cx="214" cy="252" rx="17" ry="32" transform="rotate(-22 214 252)" fill="${limb}" ${st}/>
+<ellipse cx="150" cy="140" rx="95" ry="82" fill="${fur}" ${st}/>
+${face}${O.cheek[s.cheek].f()}
+${O.eyes[s.eyes].f(114,ink,hi)}${O.eyes[s.eyes].f(186,ink,hi)}
+${O.mouth[s.mouth].f(mc)}
+${O.acc[s.acc].f()}${O.hat[s.hat].f()}${O.prop[s.prop].f()}
+</svg>`;
+}
+
+const CATS=[['fur','Цвет','🎨'],['eyes','Глазки','👀'],['mouth','Ротик','👄'],['cheek','Щёчки','🌸'],['top','Одежда','👕'],['hat','Голова','🎀'],['acc','Стиль','🕶️'],['prop','В лапках','🎁'],['bg','Фон','🌈'],['tx','Текст','✏️']];
+const def=ch=>({tx:{t:'',f:0,c:1,z:34,r:0,sh:0,o:1,sd:0,x:150,y:30},ch,fur:0,eyes:IM[ch]?0:1,mouth:0,cheek:1,top:0,hat:0,acc:0,prop:0,bg:0});
+let s=def('bubu'),hist=[],tab=1,L='ru';
+const LG=['ru','uk','en'];
+const TX={
+ ru:{title:'Bubudoo · Студия',logo:'Bubudoo',studio:'студия',h1:'Кого будем наряжать?',sub:'Выбери героя. Потом его можно поменять 💕',bubu:'Бубу',dudu:'Дуду',bubuS:'пандочка',duduS:'мишка',heroSub:'Собери свой образ Бубу или Дуду за пару кликов и сохрани для Telegram, обоев или сторис.',heroCta:'Нарядить',undo:'Назад',rnd:'Случайно',rst:'Сначала',dl:'Скачать',ftFaq:'Вопросы и ответы',ftHelp:'Ищем художников 🎨',faqT:'Вопросы и ответы',dlTitle:'Как сохранить?',dlOl:'Белая обводка у стикера',fm:[['Стикер Telegram','512×512, прозрачный'],['Аватарка','512×512'],['Обои на телефон','1080×2400'],['История','1080×1920'],['Квадратный пост','1080×1080'],['Оригинал','прозрачный PNG']],dlErr:'Чтобы сохранить картинку, открой страницу через локальный сервер (например: python3 -m http.server).',
+  cats:['Цвет','Глазки','Ротик','Щёчки','Одежда','Голова','Стиль','В лапках','Фон','Текст'],
+  foot1:'© 2026 Bubudoo · студия',foot2:'Сделано с любовью 💗 и большим количеством 🍕'},
+ uk:{title:'Bubudoo · Студія',logo:'Bubudoo',studio:'студія',h1:'Кого будемо наряджати?',sub:'Обери героя. Потім його можна змінити 💕',bubu:'Бубу',dudu:'Дуду',bubuS:'пандочка',duduS:'ведмедик',heroSub:'Збери свій образ Бубу або Дуду за пару кліків і збережи для Telegram, шпалер чи історій.',heroCta:'Вдягнути',undo:'Назад',rnd:'Випадково',rst:'Спочатку',dl:'Зберегти',ftFaq:'Питання та відповіді',ftHelp:'Шукаємо художників 🎨',faqT:'Питання та відповіді',dlTitle:'Як зберегти?',dlOl:'Біла обводка у стікера',fm:[['Стікер Telegram','512×512, прозорий'],['Аватарка','512×512'],['Шпалери на телефон','1080×2400'],['Історія','1080×1920'],['Квадратний пост','1080×1080'],['Оригінал','прозорий PNG']],dlErr:'Щоб зберегти картинку, відкрий сторінку через локальний сервер (наприклад: python3 -m http.server).',
+  cats:['Колір','Оченята','Ротик','Щічки','Одяг','Голова','Стиль','У лапках','Фон','Текст'],
+  foot1:'© 2026 Bubudoo · студія',foot2:'Зроблено з любов\u2019ю 💗 та великою кількістю 🍕'},
+ en:{title:'Bubudoo · Studio',logo:'Bubudoo',studio:'studio',h1:'Who shall we dress up?',sub:'Pick a hero. You can switch anytime 💕',bubu:'Bubu',dudu:'Dudu',bubuS:'panda',duduS:'bear',heroSub:'Dress up Bubu or Dudu in a couple of clicks and save it for Telegram, wallpaper, or your story.',heroCta:'Dress up',undo:'Undo',rnd:'Random',rst:'Reset',dl:'Save',ftFaq:'FAQ',ftHelp:'Artists wanted 🎨',faqT:'FAQ',dlTitle:'How to save?',dlOl:'White outline on the sticker',fm:[['Telegram sticker','512×512, transparent'],['Avatar','512×512'],['Phone wallpaper','1080×2400'],['Story','1080×1920'],['Square post','1080×1080'],['Original','transparent PNG']],dlErr:'To save the image, open the page through a local server (for example: python3 -m http.server).',
+  cats:['Color','Eyes','Mouth','Cheeks','Outfit','Head','Style','In paws','Background','Text'],
+  foot1:'© 2026 Bubudoo · studio',foot2:'Made with love 💗 and a lot of 🍕'}
+};
+const NM={
+ ru:{fbubu:['Классика','Сливки','Розовый','Небесный'],fdudu:['Карамель','Шоколад','Мёд','Латте'],eyes:['Точки','Блёстки','Радость','Сонные','Сердечки','Звёздочки'],mouth:['Улыбка','Ура!','Кошачий','Язычок','Ой'],cheek:['Нет','Румянец','Сердечки','Веснушки'],top:['Нет','Свитер','Худи','Комбинезон','Платье','Футболка'],hat:['Нет','Бантик','Венок','Шапочка','Корона','Колпак'],acc:['Нет','Очки','Тёмные очки','Шарфик','Бабочка','Кулон'],prop:['Нет','Шарик','Роза','Подарок','Бабл-ти'],bg:['Розовое','Небо','Мята','Лаванда','Закат','Крем']},
+ uk:{fbubu:['Класика','Вершки','Рожевий','Небесний'],fdudu:['Карамель','Шоколад','Мед','Лате'],eyes:['Крапки','Блискітки','Радість','Сонні','Сердечка','Зірочки'],mouth:['Усмішка','Ура!','Котячий','Язичок','Ой'],cheek:['Немає','Рум\u2019янець','Сердечка','Веснянки'],top:['Немає','Светр','Худі','Комбінезон','Сукня','Футболка'],hat:['Немає','Бантик','Віночок','Шапочка','Корона','Ковпак'],acc:['Немає','Окуляри','Темні окуляри','Шарфик','Метелик','Кулон'],prop:['Немає','Кулька','Троянда','Подарунок','Бабл-ті'],bg:['Рожевий','Небо','М\u2019ята','Лаванда','Захід','Крем']},
+ en:{fbubu:['Classic','Cream','Pink','Sky'],fdudu:['Caramel','Chocolate','Honey','Latte'],eyes:['Dots','Sparkles','Happy','Sleepy','Hearts','Stars'],mouth:['Smile','Yay!','Kitty','Tongue','Oops'],cheek:['None','Blush','Hearts','Freckles'],top:['None','Sweater','Hoodie','Overalls','Dress','T-shirt'],hat:['None','Bow','Flower crown','Beanie','Crown','Party hat'],acc:['None','Glasses','Sunglasses','Scarf','Bow tie','Necklace'],prop:['None','Balloon','Rose','Gift','Boba tea'],bg:['Pink','Sky','Mint','Lavender','Sunset','Cream']}
+};
+const nm=(k,i)=>{const im=IM[s.ch]&&IM[s.ch][k];return NM[L][k=='fur'?'f'+s.ch:k][im?im[i].i:i]};
+function setLang(l){
+ L=l;try{localStorage.setItem('lang',l)}catch(e){}
+ document.documentElement.lang=l;document.title=TX[l].title;
+ document.querySelectorAll('[data-k]').forEach(e=>e.textContent=TX[l][e.dataset.k]);
+ $('#th').style.transform=`translateX(${LG.indexOf(l)*100}%)`;
+ document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l==l));
+ if(!$('#edit').classList.contains('hidden'))ui();
+}
+const list=k=>{const im=IM[s.ch]&&IM[s.ch][k];if(im)return im.map(x=>k=='fur'?{c:P[s.ch].fur[x.i][1]}:{e:O[k][x.i].e});return k=='fur'?P[s.ch].fur.map(([n,c])=>({n,c})):O[k]};
+
+const FONTS=[['Nunito',800],['Comfortaa',700],['Marmelad',400],['Pangolin',400],['Caveat',700],['Pacifico',400],['Lobster',400]],
+ COL=['#ffffff','#ff5c8a','#ff8fb1','#ffb84d','#5fb8f5','#6fcf97','#a98bff','#5b3a4a'],FL=new Set(),
+ fs=i=>`${FONTS[i][1]} 20px "${FONTS[i][0]}"`,
+ TT={ru:['Введи надпись','Шрифт','Цвет','Размер','Наклон','Подложка','Нет','Облачко','Плашка','Обводка','Тень','Сверху','По центру','Снизу','Стереть'],
+  uk:['Введи напис','Шрифт','Колір','Розмір','Нахил','Підкладка','Немає','Хмаринка','Плашка','Обводка','Тінь','Зверху','По центру','Знизу','Стерти'],
+  en:['Type your text','Font','Color','Size','Tilt','Backing','None','Bubble','Banner','Outline','Shadow','Top','Center','Bottom','Clear']};
+function drawT(c,k,t){
+ if(!t||!t.t.trim())return;const[fam,w]=FONTS[t.f];
+ c.save();c.scale(k,k);c.translate(t.x,t.y);c.rotate(t.r*Math.PI/180);
+ c.font=`${w} ${t.z}px "${fam}",Nunito,sans-serif`;c.textAlign='center';c.textBaseline='middle';
+ const tw=c.measureText(t.t).width,pad=t.z*.5,h=t.z*1.3,f=Math.min(1,250/(tw+pad*2));c.scale(f,f);
+ if(t.sh){c.fillStyle=t.sh==1?'#fff':'#ffd6e3';c.strokeStyle='#ff8fb1';c.lineWidth=3;c.lineJoin='round';c.beginPath();c.roundRect(-tw/2-pad,-h/2,tw+pad*2,h,t.sh==1?h/2:10);c.fill();c.stroke();
+  if(t.sh==1){c.beginPath();c.moveTo(-9,h/2-1);c.lineTo(0,h/2+15);c.lineTo(9,h/2-1);c.fillStyle='#fff';c.fill();c.stroke();c.beginPath();c.moveTo(-8,h/2-1.5);c.lineTo(8,h/2-1.5);c.strokeStyle='#fff';c.lineWidth=4;c.stroke()}}
+ if(t.o){c.lineJoin='round';c.lineWidth=t.z*.24;c.strokeStyle=t.c==0?'#ff8fb1':'#fff';c.strokeText(t.t,0,0)}
+ if(t.sd){c.shadowColor='rgba(91,58,74,.4)';c.shadowBlur=4*k;c.shadowOffsetY=2*k}
+ c.fillStyle=COL[t.c];c.fillText(t.t,0,0);c.restore();
+}
+function drawPrev(){
+ const cv=$('#tc'),r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1,f=FONTS[s.tx.f];
+ cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d);
+ cv.style.pointerEvents=CATS[tab][0]=='tx'?'auto':'none';cv.style.cursor='grab';
+ if(!FL.has(f[0])){FL.add(f[0]);document.fonts.load(fs(s.tx.f),'Аа Aa').then(drawPrev)}
+ drawT(cv.getContext('2d'),cv.width/300,s.tx);
+}
+function txUI(){
+ const t=s.tx,T=TT[L];
+ $('#txp').innerHTML=`<input type="text" id="ti" maxlength="30" placeholder="${T[0]}" value="${t.t.replace(/"/g,'&quot;')}">
+ <div class="lab">${T[1]}</div><div class="fonts">${FONTS.map((f,i)=>`<button data-f="${i}" class="${t.f==i?'on':''}" style="font:${f[1]} 17px '${f[0]}',sans-serif">Бубу Dudu</button>`).join('')}</div>
+ <div class="lab">${T[2]}</div><div class="sws">${COL.map((c,i)=>`<button data-c="${i}" class="${t.c==i?'on':''}" style="background:${c}"></button>`).join('')}</div>
+ <div class="lab">${T[3]}</div><input type="range" id="tz" min="16" max="60" value="${t.z}">
+ <div class="lab">${T[4]}</div><input type="range" id="tr" min="-15" max="15" value="${t.r}">
+ <div class="lab">${T[5]}</div><div class="row">${[6,7,8].map((n,i)=>`<button class="pill ${t.sh==i?'on':''}" data-s="${i}">${T[n]}</button>`).join('')}</div>
+ <div class="row"><button class="pill ${t.o?'on':''}" data-o="1">${T[9]}</button><button class="pill ${t.sd?'on':''}" data-d="1">${T[10]}</button></div>
+ <div class="row">${[[11,30],[12,170],[13,316]].map(([n,y])=>`<button class="pill" data-y="${y}">${T[n]}</button>`).join('')}<button class="pill" data-x="1">${T[14]}</button></div>`;
+}
+$('#txp').oninput=e=>{const t=s.tx,i=e.target.id;if(i=='ti'){tpush('t');t.t=e.target.value}else if(i=='tz'){tpush('z');t.z=+e.target.value}else if(i=='tr'){tpush('r');t.r=+e.target.value}else return;drawPrev()};
+$('#txp').onclick=e=>{const b=e.target.closest('button');if(!b)return;const t=s.tx,d=b.dataset;push();
+ if(d.f!=null)t.f=+d.f;else if(d.c!=null)t.c=+d.c;else if(d.s!=null)t.sh=+d.s;else if(d.o)t.o=t.o?0:1;else if(d.d)t.sd=t.sd?0:1;else if(d.y){t.y=+d.y;t.x=150}else if(d.x)t.t='';ui()};
+(()=>{const cv=$('#tc');let dr=0,off=[0,0];const pos=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)/r.width*300,(e.clientY-r.top)/r.height*340]};
+ cv.onpointerdown=e=>{if(!s.tx.t.trim())return;push();const[x,y]=pos(e);off=[s.tx.x-x,s.tx.y-y];dr=1;cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'};
+ cv.onpointermove=e=>{if(!dr)return;const[x,y]=pos(e);s.tx.x=Math.max(10,Math.min(290,x+off[0]));s.tx.y=Math.max(10,Math.min(330,y+off[1]));drawPrev()};
+ cv.onpointerup=()=>{dr=0;cv.style.cursor='grab'}})();
+new ResizeObserver(()=>drawPrev()).observe($('#stage'));
+function ui(bounce){
+ const st=$('#stage');$('#sv').innerHTML=R(s,'s');if(bounce)txk=null;setTimeout(drawPrev,0);
+ if(bounce){st.classList.remove('bn');void st.offsetWidth;st.classList.add('bn')}
+ $('#seg').innerHTML=Object.keys(P).map(c=>`<button data-c="${c}" class="${s.ch==c?'on':''}"><img class="seg-ic" src="assets/img/faces/${c}.png" alt="">${TX[L][c]}</button>`).join('');
+ const vis=CATS.map((c,i)=>i).filter(i=>!IM[s.ch]||IMCATS.includes(CATS[i][0]));if(!vis.includes(tab))tab=vis[0];
+ $('#tabs').innerHTML=vis.map(i=>`<button data-t="${i}" class="${tab==i?'on':''}">${CATS[i][2]} ${TX[L].cats[i]}</button>`).join('');
+ const k=CATS[tab][0];
+ $('#opts').classList.toggle('hidden',k=='tx');$('#txp').classList.toggle('hidden',k!='tx');if(k=='tx')txUI();else $('#opts').innerHTML=list(k).map((o,i)=>`<button data-i="${i}" class="${s[k]==i?'on':''}">${o.c?`<i style="background:${o.c}"></i>`:`<b>${o.e}</b>`}${nm(k,i)}</button>`).join('');
+}
+let txk;const push=()=>{txk=null;hist.push(JSON.stringify(s))};const tpush=k=>{if(txk!==k){hist.push(JSON.stringify(s));txk=k}};
+function start(ch){s=def(ch);hist=[];tab=1;$('#pick').classList.add('hidden');$('#edit').classList.remove('hidden');ui(1)}
+function showHero(){$('.app').classList.add('hidden');$('#hero').classList.remove('hidden')}
+function leaveHero(){$('#hero').classList.add('hidden');$('.app').classList.remove('hidden');$('.top').classList.remove('hidden');$('.ft').classList.remove('hidden');$('#pick').classList.remove('hidden');$('#edit').classList.add('hidden')}
+$('#heroCta').onclick=leaveHero;
+$('#heroHome').onclick=showHero;
+
+$('#home').onclick=showHero;
+document.querySelectorAll('.cc').forEach(b=>b.onclick=()=>start(b.dataset.ch));
+$('#seg').onclick=e=>{const c=e.target.closest('button')?.dataset.c;if(c&&c!=s.ch){push();s=Object.assign(def(c),{bg:s.bg,tx:s.tx});ui(1)}};
+$('#tabs').onclick=e=>{const t=e.target.closest('button')?.dataset.t;if(t!=null){tab=+t;ui()}};
+$('#opts').onclick=e=>{const i=e.target.closest('button')?.dataset.i;if(i!=null){push();s[CATS[tab][0]]=+i;ui(1)}};
+$('#undo').onclick=()=>{if(hist.length){s=JSON.parse(hist.pop());ui(1)}};
+$('#rst').onclick=()=>{push();s=def(s.ch);ui(1)};
+$('#rnd').onclick=()=>{push();CATS.forEach(([k])=>{if(k!='tx')s[k]=Math.floor(Math.random()*list(k).length)});ui(1)};
+
+/* ---------- FAQ + "help the project" ---------- */
+/* Icon set: inline SVG (no external font/CDN, works offline too). Add more the same way when needed. */
+const ICONS={
+ telegram:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>',
+ mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>'
+};
+const ico=n=>`<i class="ico">${ICONS[n]}</i>`;
+/* Contacts shown in the FAQ (leave a field empty to hide it) */
+const CONTACT={tg:'masati_a',mail:'alexandr.masati@gmail.com'};
+const FQ={
+ ru:{soon:'скоро здесь появится контакт',qs:[
+  ['Как сохранить образ для Telegram или на обои?','Нажми «Скачать» и выбери формат: стикер Telegram (512×512, прозрачный фон), аватарка, обои на телефон, история, квадратный пост или оригинал. На телефоне откроется меню «Поделиться»: оттуда можно сразу сохранить в Фото или отправить в Telegram.'],
+  ['Мои картинки куда-то отправляются?','Нет. Образ и надпись собираются прямо в твоём браузере и никуда не отправляются. Из интернета подгружаются только шрифты Google Fonts, а в браузере запоминается лишь выбранный язык.'],
+  ['Как изменить или убрать надпись?','Открой вкладку «Текст»: там можно набрать надпись, выбрать шрифт и цвет, а перетаскивать её можно прямо по картинке. Чтобы убрать надпись, нажми «Стереть».'],
+  ['Откуда взялись Бубу и Дуду?','Это фанатский некоммерческий проект. Бубу и Дуду принадлежат их создателям, а мы просто делаем для них милый конструктор.'],
+  ['Нашёл ошибку или есть идея?','Напиши нам: {c}. Расскажи, что случилось и на каком устройстве (телефон или компьютер), так мы разберёмся быстрее.']],
+  ht:'Хочешь помочь проекту? 💗',hp:'Мы ищем художников, которые нарисуют одежду, шапки и аксессуары для Бубу и Дуду в нашем стиле. Пригодятся и переводчики на другие языки, и тестировщики, и идеи.',hb:'Написать нам',hs:'Что нужно знать художнику',
+  hl:['Каждый предмет отдельный PNG с прозрачным фоном.','Холст 1254×1254 пикселей, предмет нарисован сразу на своём месте на персонаже.','Стиль: чистые плоские цвета и однородная тёмная обводка, как у наших персонажей.','Если часть предмета за персонажем (хвост шарфа), нарисуй её отдельным слоем.']},
+ uk:{soon:'скоро тут з’явиться контакт',qs:[
+  ['Як зберегти образ для Telegram або на шпалери?','Натисни «Зберегти» і обери формат: стікер Telegram (512×512, прозорий фон), аватарка, шпалери на телефон, історія, квадратний пост або оригінал. На телефоні відкриється меню «Поділитися»: звідти можна одразу зберегти у Фото або надіслати в Telegram.'],
+  ['Мої картинки кудись надсилаються?','Ні. Образ і напис збираються прямо у твоєму браузері й нікуди не надсилаються. З інтернету підвантажуються лише шрифти Google Fonts, а в браузері запам’ятовується тільки обрана мова.'],
+  ['Як змінити або прибрати напис?','Відкрий вкладку «Текст»: там можна набрати напис, обрати шрифт і колір, а перетягувати його можна просто по картинці. Щоб прибрати напис, натисни «Стерти».'],
+  ['Звідки взялися Бубу і Дуду?','Це фанатський некомерційний проєкт. Бубу і Дуду належать їхнім творцям, а ми просто робимо для них милий конструктор.'],
+  ['Знайшов помилку або є ідея?','Напиши нам: {c}. Розкажи, що сталося і на якому пристрої (телефон чи комп’ютер), так ми розберемося швидше.']],
+  ht:'Хочеш допомогти проєкту? 💗',hp:'Ми шукаємо художників, які намалюють одяг, шапки та аксесуари для Бубу і Дуду в нашому стилі. Стануть у пригоді й перекладачі на інші мови, тестувальники та ідеї.',hb:'Написати нам',hs:'Що потрібно знати художнику',
+  hl:['Кожен предмет це окремий PNG з прозорим тлом.','Полотно 1254×1254 пікселів, предмет намальований одразу на своєму місці на персонажі.','Стиль: чисті пласкі кольори та однорідна темна обводка, як у наших персонажів.','Якщо частина предмета за персонажем (хвіст шарфа), намалюй її окремим шаром.']},
+ en:{soon:'a contact will appear here soon',qs:[
+  ['How do I save my creation for Telegram or as a wallpaper?','Tap “Save” and pick a format: Telegram sticker (512×512, transparent), avatar, phone wallpaper, story, square post or original. On a phone the Share menu opens, so you can save to Photos or send it to Telegram right away.'],
+  ['Are my pictures sent anywhere?','No. Your character and text are built right in your browser and never uploaded. The only things loaded from the internet are Google Fonts, and the browser remembers just your chosen language.'],
+  ['How do I change or remove the text?','Open the “Text” tab: type your text, pick a font and color, and drag it right on the picture. To remove it, tap “Clear”.'],
+  ['Where do Bubu and Dudu come from?','This is a non-commercial fan project. Bubu and Dudu belong to their creators; we just make a cute dress-up studio for them.'],
+  ['Found a bug or have an idea?','Write to us: {c}. Tell us what happened and on which device (phone or computer), and we will sort it out faster.']],
+  ht:'Want to help the project? 💗',hp:'We are looking for artists to draw clothes, hats and accessories for Bubu and Dudu in our style. Translators, testers and ideas are welcome too.',hb:'Write to us',hs:'What an artist should know',
+  hl:['Each item is a separate PNG with a transparent background.','Canvas 1254×1254 pixels, the item drawn right where it sits on the character.','Style: clean flat colors and one even dark outline, like our characters.','If part of an item goes behind the character (a scarf tail), draw it as a separate layer.']}
+};
+function faqHTML(){
+ const f=FQ[L],cl=[CONTACT.tg&&`<a href="https://t.me/${CONTACT.tg}" target="_blank" rel="noopener">@${CONTACT.tg}</a>`,CONTACT.mail&&`<a href="mailto:${CONTACT.mail}">${CONTACT.mail}</a>`].filter(Boolean),c=cl.length?cl.join(' · '):f.soon;
+ return f.qs.map(([q,a])=>`<details class="q"><summary>${q}</summary><p>${a.replace('{c}',c)}</p></details>`).join('')
+  +`<div class="help" id="help"><h4>${f.ht}</h4><p>${f.hp}</p><div class="row">${CONTACT.tg?`<a class="btn" href="https://t.me/${CONTACT.tg}" target="_blank" rel="noopener">${ico('telegram')}Telegram</a>`:''}${CONTACT.mail?`<a class="btn btn2" href="mailto:${CONTACT.mail}">${ico('mail')}Email</a>`:''}</div><details><summary>${f.hs}</summary><ul>${f.hl.map(x=>`<li>${x}</li>`).join('')}</ul></details></div>`}
+function openFaq(help){
+ $('#faqc').innerHTML=faqHTML();$('#faq').classList.remove('hidden');document.body.style.overflow='hidden';
+ if(help){const h=$('#help');h.scrollIntoView({block:'center'});h.classList.add('flash')}}
+$('#faqb').onclick=()=>openFaq();
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openFaq(b.dataset.open=='help'));
+
+/* ---------- export: one renderer for every format ---------- */
+const FM=[{id:'sticker',w:512,h:512,bg:0,sc:1.02,cy:.5,ol:1},{id:'avatar',w:512,h:512,bg:1,sc:1.5,cy:.58},{id:'wallpaper',w:1080,h:2400,bg:1,sc:.95,cy:.64},{id:'story',w:1080,h:1920,bg:1,sc:.95,cy:.55},{id:'post',w:1080,h:1080,bg:1,sc:1,cy:.5},{id:'original',w:1200,h:1360,bg:0,sc:1,cy:.5}];
+let CH=null;
+const load=src=>new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=src}),
+ svgURL=x=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(x);
+async function inl(svg){
+ for(const u of new Set([...svg.matchAll(/href="(assets\/[^"]+)"/g)].map(m=>m[1]))){
+  const d=await new Promise(async(ok,no)=>{const f=new FileReader();f.onload=()=>ok(f.result);f.onerror=no;f.readAsDataURL(await (await fetch(u)).blob())});
+  svg=svg.split(`href="${u}"`).join(`href="${d}"`)}
+ return svg}
+function bgSvg(W,H){
+ const b=BG[s.bg],vh=300*H/W,n=Math.ceil(vh/340);let t='';
+ for(let i=0;i<n;i++)t+=`<g transform="translate(${i%2?300:0},${i*340}) scale(${i%2?-1:1},1)">${b[3]}</g>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 ${vh}" width="${W}" height="${H}"><defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${b[2][0]}"/><stop offset="1" stop-color="${b[2][1]}"/></linearGradient></defs><rect width="300" height="${vh}" fill="url(#gb)"/>${t}</svg>`}
+async function makeOut(f,q,ol){
+ const W=Math.round(f.w*q),H=Math.round(f.h*q),c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+ const k=f.sc*Math.min(W/300,H/340),cx=W/2,ox=cx-150*k,oy=H*f.cy-170*k;
+ if(f.bg){g.drawImage(await load(svgURL(bgSvg(W,H))),0,0,W,H);g.fillStyle='rgba(91,58,74,.1)';g.beginPath();g.ellipse(cx,oy+324*k,84*k,9*k,0,0,7);g.fill()}
+ if(ol){const t=document.createElement('canvas');t.width=W;t.height=H;const tg=t.getContext('2d');
+  tg.drawImage(CH,ox,oy,300*k,340*k);tg.save();tg.translate(ox,oy);drawT(tg,k,s.tx);tg.restore();
+  tg.globalCompositeOperation='source-in';tg.fillStyle='#fff';tg.fillRect(0,0,W,H);
+  const r=Math.max(2,W*.012);for(let a=0;a<24;a++)g.drawImage(t,Math.cos(a*Math.PI/12)*r,Math.sin(a*Math.PI/12)*r)}
+ g.drawImage(CH,ox,oy,300*k,340*k);g.save();g.translate(ox,oy);drawT(g,k,s.tx);g.restore();return c}
+const olOn=()=>$('#outl').checked;
+async function thumbs(){FM.forEach(async(f,i)=>{const c=await makeOut(f,Math.min(1,200/Math.max(f.w,f.h)),f.ol&&olOn());const im=$(`#fmts [data-i="${i}"] img`);if(im)im.src=c.toDataURL()})}
+async function openDl(){
+ const m=$('#dlm');$('#fmts').innerHTML=FM.map((f,i)=>`<button class="fmt" data-i="${i}"><span class="th"><img alt=""></span><b>${TX[L].fm[i][0]}</b><small>${TX[L].fm[i][1]}</small></button>`).join('');
+ m.classList.remove('hidden');document.body.style.overflow='hidden';$('#fmts button').focus();
+ try{await document.fonts.load(fs(s.tx.f),'Аа Aa');CH=await load(svgURL(await inl(R(s,'o',true))));thumbs()}catch(e){closeDl();alert(TX[L].dlErr)}}
+function closeSheet(el){el.classList.add('hidden');if(!document.querySelector('.sheet:not(.hidden)'))document.body.style.overflow=''}
+function closeDl(){closeSheet($('#dlm'))}
+$('#dl').onclick=openDl;
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeSheet(b.closest('.sheet')));
+document.addEventListener('keydown',e=>{if(e.key=='Escape')document.querySelectorAll('.sheet:not(.hidden)').forEach(closeSheet)});
+$('#outl').onchange=thumbs;
+$('#fmts').onclick=async e=>{
+ const b=e.target.closest('.fmt');if(!b||!CH)return;const f=FM[+b.dataset.i];b.classList.add('busy');
+ try{const c=await makeOut(f,1,f.ol&&olOn()),blob=await new Promise(r=>c.toBlob(r,'image/png')),name=`bubudoo-${s.ch}-${f.id}.png`,file=new File([blob],name,{type:'image/png'});
+  if(matchMedia('(pointer:coarse)').matches&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file]})}catch(e){}}
+  else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click()}}
+ finally{b.classList.remove('busy')}};
+document.querySelectorAll('.grab').forEach(g=>{let y0=null;g.ontouchstart=e=>{y0=e.touches[0].clientY};g.ontouchmove=e=>{if(y0!=null&&e.touches[0].clientY-y0>70){y0=null;closeSheet(g.closest('.sheet'))}}});
+
+$('#pv-bubu').innerHTML=R(def('bubu'),'a');
+$('#pv-dudu').innerHTML=R(def('dudu'),'b');
+$('#fl').innerHTML=Array.from({length:12},(_,i)=>{const it=['💗','✨','🌸','💕','face:bubu','face:dudu'][i%6],st=`left:${(i*8.7+3)%98}%;animation-duration:${14+(i*5)%11}s;animation-delay:-${(i*3)%14}s`;
+ return it.startsWith('face:')?`<span class="fl fl-face" style="${st}"><img src="assets/img/faces/${it.slice(5)}.png" alt=""></span>`:`<span class="fl" style="${st}">${it}</span>`}).join('');
+$('.lang').onclick=e=>{const l=e.target.closest('button')?.dataset.l;if(l)setLang(l)};
+let sv;try{sv=localStorage.getItem('lang')}catch(e){}
+const nl=navigator.language||'';
+setLang(LG.includes(sv)?sv:nl.startsWith('uk')?'uk':nl.startsWith('ru')?'ru':'en');
+</script>
+</body>
+</html>
